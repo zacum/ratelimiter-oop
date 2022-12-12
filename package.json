@@ -1,0 +1,25 @@
+{
+  "name": "immersve-coding-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "contributors": [
+    "Nathan Jones <nathan.jones@immersve.com>"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-plugin-no-only-tests": "^2.4.0",
+    "eslint-plugin-node": "^11.1.0",
+    "jest": "^26.4.2"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
