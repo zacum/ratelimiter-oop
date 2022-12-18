@@ -7,6 +7,7 @@ describe("rateLimiterMiddleware tests", () => {
       for (let i = 0; i < 2; i++) {
         try {
           res = await axios.get('http://localhost:8000')
+          console.log(res.status)
           expect(res.status).toBe(200)
           expect(res.data).toMatch('Good!')
         } catch (error) { }

@@ -1,8 +1,8 @@
-import NodeCache from "node-cache";
-import { isIPv6 } from "is-ip";
-import { getClientIp } from "request-ip";
+const NodeCache = require("node-cache");
+const isIp = require("is-ip");
+const { getClientIp } = require("request-ip");
 
-export class RateLimiterMiddleware {
+class RateLimiterMiddleware {
     constructor(arg) {
         this.MS_TO_S = 1 / 1000
         this.TIME_FRAME_IN_S = arg.TIME_FRAME_IN_S
@@ -23,7 +23,7 @@ export class RateLimiterMiddleware {
     }
     rateLimiter = (req, res, next) => {
         let clientIP = getClientIp(req)
-        if (isIPv6(clientIP)) {
+        if (isIp.v6(clientIP)) {
             clientIP = clientIP.split(':').splice(0, 4).join(':') + '::/64'
         }
         this.updateCache(clientIP)
@@ -32,13 +32,12 @@ export class RateLimiterMiddleware {
             const rps = IPArray.length / ((IPArray[IPArray.length - 1] - IPArray[0]) * this.MS_TO_S)
             if (rps > this.RPS_LIMIT) {
                 const timeToWait = Math.ceil((IPArray.length + 1) / this.RPS_LIMIT / this.MS_TO_S) + IPArray[0] - Date.now()
-                res.setHeader('Content-Type', 'text/html')
                 res.setHeader('Retry-After', timeToWait)
                 res.status(429).send(`You are hitting the limit. Please try after ${timeToWait} miliseconds.`)
             }
-            else next()
+            else res.status(200).send('Good!')
         }
-        else next()
+        else res.status(200).send('Good!')
     }
     updateCache = (ip) => {
         let IPArray = this.IPCache.get(ip) || []
@@ -46,4 +45,7 @@ export class RateLimiterMiddleware {
         this.IPCache.set(ip, IPArray, (this.IPCache.getTtl(ip) - Date.now()) * this.MS_TO_S || this.TIME_FRAME_IN_S)
     }
 
+}
+module.exports = {
+    RateLimiterMiddleware: RateLimiterMiddleware
 }

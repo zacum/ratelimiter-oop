@@ -1,6 +1,5 @@
-import express from "express";
-import { RateLimiterMiddleware } from "./src/middleware/rateLimiterMiddleware.js";
-
+const express = require("express");
+const { RateLimiterMiddleware } = require("./src/middleware/rateLimiterMiddleware.js");
 const app = express();
 
 const rateLimiterMiddleware = new RateLimiterMiddleware({
@@ -9,10 +8,9 @@ const rateLimiterMiddleware = new RateLimiterMiddleware({
 })
 app.use(rateLimiterMiddleware.rateLimiter);
 
-app.get('/', (req, res) => {
-    res.send('I am here.')
-})
 
 app.listen(process.env.PORT || 8000, () => {
     console.log(`Server is running on port ${process.env.PORT || 8000}`);
 });
+
+module.exports = app
