@@ -13,12 +13,14 @@
   },
   "dependencies": {
     "axios": "0.25.0",
+    "babel-eslint": "^10.1.0",
     "express": "^4.18.2",
     "is-ip": "3.1.0",
     "node-cache": "^5.1.2",
     "request-ip": "^3.3.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
     "eslint": "^7.20.0",
     "eslint-plugin-no-only-tests": "^2.4.0",
     "eslint-plugin-node": "^11.1.0",

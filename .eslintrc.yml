@@ -13,6 +13,7 @@ extends:
 parserOptions:
   ecmaVersion: 2020
 
+parser: babel-eslint
 # when updating, please copy to other projects <3
 # code */.eslintrc.yml
 rules:
@@ -30,3 +31,5 @@ rules:
   space-infix-ops: [ error ]
   strict: [ error, "global" ]
   no-only-tests/no-only-tests: [ error ]
+  
+  
